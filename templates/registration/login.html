@@ -11,6 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <link rel="icon" href="{% static 'img/wallet.png' %}" type="image/gif" sizes="16x16">
 
   <title> Iniciar sesión </title>
 
@@ -35,11 +36,13 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6 d-none d-lg-block" style="background-image: url({% static 'img/loginbg.jpg' %})">
+              </div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Bienvenido</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Bienvenido a EasyWallet</h1>
+                    <h5>Tu servicio de gestión de finanzas personales</h5>
                   </div>
                   <form method="post" class="user">{% csrf_token %}
                     <div class="form-group">

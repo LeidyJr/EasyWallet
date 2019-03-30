@@ -21,7 +21,10 @@ def crear_cuenta(request):
             cuenta.tipo = form.cleaned_data["tipo"]
             cuenta.usuario = request.user
             cuenta.save()
+            messages.success(request, 'La cuenta se registró correctamente.')
             return redirect('cuentas:listado_de_cuentas')
+        else:
+            messages.error(request, 'No se pudo registrar la cuenta, por favor verifique los datos ingresados.')
     else:
         form = CuentaForm()
     return render(request, 'cuentas/cuentas_form.html', {
@@ -30,13 +33,13 @@ def crear_cuenta(request):
 
 @login_required
 def mis_cuentas(request):
-    cuentas = request.user.cuentas_del_usuario.all()
+    cuentas = request.user.cuentas_del_usuario.filter(estado='Activa')
     return render(request, 'cuentas/listado_de_cuentas.html',{'cuentas':cuentas})
 
 
-class EditarCuenta(LoginRequiredMixin, UpdateView):
+class EditarCuenta(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Cuenta
     form_class = CuentaForm
     template_name = 'cuentas/cuentas_form.html'
-    success_message = "La cuenta %(name)s se modificó correctamente."
+    success_message = "La cuenta %(nombre)s se modificó correctamente."
     success_url = reverse_lazy('cuentas:listado_de_cuentas')

@@ -14,7 +14,7 @@ class Presupuesto(models.Model):
 class Categoria(models.Model):
 
 	nombre = models.CharField(max_length=15, verbose_name="Nombre de la categoría") #almuerzos
-	planeado = models.IntegerField()
-	actual = models.IntegerField()
+	planeado = models.IntegerField()#20000
+	actual = models.IntegerField(blank=True)
 	diferencia = models.IntegerField(blank=True)
 	presupuesto = models.ForeignKey(Presupuesto, related_name="categorias_del_presupuesto", on_delete=models.CASCADE)

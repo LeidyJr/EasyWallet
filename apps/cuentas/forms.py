@@ -9,11 +9,12 @@ class CuentaForm(forms.ModelForm):
 
 	class Meta:
 		model = Cuenta
-		fields = ("nombre" , "saldo", "tipo", )
+		fields = ("nombre" , "saldo", "tipo", "estado", )
 		labels = {
 		"nombre": "Nombre: ",
 		"saldo": "Saldo: ", 
-		"tipo": "Tipo: "
+		"tipo": "Tipo: ",
+		"estado": "Estado: "
 		}
 
 	def clean_nombre(self):
@@ -24,4 +25,7 @@ class CuentaForm(forms.ModelForm):
 		return data
 	def clean_tipo(self):
 		data = self.cleaned_data.get('tipo')
+		return data
+	def clean_estado(self):
+		data = self.cleaned_data.get('estado')
 		return data

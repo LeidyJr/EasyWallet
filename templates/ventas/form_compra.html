@@ -1,0 +1,70 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+{% block title %} Compra de boletos  {% endblock %}
+{% block content %}
+<div class="card shadow mb-12">
+<div class="row">
+	<div class="col-lg-4">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Comprar boletos</h6>
+			</div>
+			<div class="card-body">
+			     <form method="post">
+					{% csrf_token %}
+					{% bootstrap_form form %}
+					<button type="submit" class="btn btn-info">Seleccionar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="card shadow mb-4">
+			<div class="card-header py-3">
+					<h6 class="m-0 font-weight-bold text-primary">Boletos a comprar:</h6>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+	                <table class="table table-bordered dataTable" width="100%" cellspacing="0">
+	                	<thead>
+	                    	<tr>
+	                        	<th scope="col">Boleto</th>
+	                        	<th scope="col">Precio</th>
+	                        	<th scope="col">Acciones</th>
+	                        </tr>
+	                    </thead>
+	                 	<tbody>
+	                    {% if venta_activa.boletos_de_la_venta.all %}
+	                        {% for boleto in venta_activa.boletos_de_la_venta.all %}
+	                        <tr class="table-primary">
+	                            <td>{{boleto.localidades_evento}}</td>
+	                            <td>{{boleto.localidades_evento.precio}}</td>
+	                            <td><a href="{% url 'ventas:eliminar_boleto_compra' boleto.id %}" class="btn btn-danger btn-circle btn-lg">
+	                    		<i class="fas fa-trash"></i></a></td>
+	                    	</tr>
+	                    	{% endfor %}
+	                    {% else %}
+	                    <h1> No hay nada en tu carrito </h1>
+	                    {% endif %}
+	                    </tbody>
+                	</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<div class="col-lg-6">
+	{% if venta_activa.boletos_de_la_venta.all %}
+<a href="{% url 'ventas:finalizar_compra' %}" class="btn btn-success btn-icon-split">
+	<span class="icon text-white-50"><i class="fas fa-check"></i></span>
+    <span class="text">Finalizar compra</span>
+</a>
+{% endif %}
+</div>
+</div>
+
+{% endblock %}

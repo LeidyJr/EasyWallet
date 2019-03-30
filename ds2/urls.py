@@ -26,6 +26,7 @@ urlpatterns = [
     # path('transacciones/', include ('apps.transacciones.urls', namespace='transacciones')),
 
     path('', views.LoginView.as_view(), name='home' ),
+    url(r'^accounts/', include('allauth.urls'), name='accounts'),
 
     path('login/', views.LoginView.as_view(), name='login'),
     path('logout/', views.LogoutView.as_view(), name='logout'),

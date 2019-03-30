@@ -28,8 +28,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% if object_list  %}
-                        {% for cuenta in object_list  %}
+                    {% if cuentas  %}
+                        {% for cuenta in cuentas  %}
                         <tr class="table-primary">
                             <td>{{ forloop.counter }}</td>
                             <td>{{ cuenta.nombre }}</td>

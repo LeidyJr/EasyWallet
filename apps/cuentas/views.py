@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
@@ -9,6 +10,7 @@ from django.contrib import messages
 from .models import Cuenta
 from .forms import CuentaForm
 
+@login_required
 def crear_cuenta(request):
     if request.method == 'POST':
         form = CuentaForm(request.POST)
@@ -26,18 +28,15 @@ def crear_cuenta(request):
         'form': form
     })
 
-class ListarCuentas(ListView):
-    model = Cuenta
-    template_name = 'cuentas/listado_de_cuentas.html'
-    queryset = Cuenta.objects.all()
+@login_required
+def mis_cuentas(request):
+    cuentas = request.user.cuentas_del_usuario.all()
+    return render(request, 'cuentas/listado_de_cuentas.html',{'cuentas':cuentas})
 
 
-class EditarCuenta(UpdateView):
+class EditarCuenta(LoginRequiredMixin, UpdateView):
     model = Cuenta
     form_class = CuentaForm
     template_name = 'cuentas/cuentas_form.html'
     success_message = "La cuenta %(name)s se modificó correctamente."
     success_url = reverse_lazy('cuentas:listado_de_cuentas')
-
-def error_404(request, exception):
-    return render(request,'404.html', status = 404)

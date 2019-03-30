@@ -39,3 +39,5 @@ class EditarCuenta(UpdateView):
     success_message = "La cuenta %(name)s se modificó correctamente."
     success_url = reverse_lazy('cuentas:listado_de_cuentas')
 
+def error_404(request, exception):
+    return render(request,'404.html', status = 404)

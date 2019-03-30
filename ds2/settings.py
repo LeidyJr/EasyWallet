@@ -25,7 +25,7 @@ SECRET_KEY = 'ilrbl)f4h7j7nj6z4j$e-=9cm1r&3&g_fzdhtki++soy37(2!&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -175,5 +175,5 @@ MESSAGE_TAGS = {
 SITE_ID = 1
 
 
-#LOGIN_REDIRECT_URL = ''
+LOGIN_REDIRECT_URL = 'cuentas:listado_de_cuentas'
 LOGOUT_REDIRECT_URL = 'login'

@@ -88,23 +88,8 @@ def EditarCategoriaF(request,pk):
             categoria = form.save(commit=False)
             actualizarCategoria(categoria.id, categoria.planeado)
             categoria.save()
-        return redirect('presupuestos:listado_de_presupuestos')
+        return redirect('presupuestos:listado_de_categorias', categoria.presupuesto.id)
     return render(request, 'presupuestos/categorias_form.html', {'form':form})
-
-
-class EditarCategoria(UpdateView):
-    model = Categoria
-    fields = ('planeado', )
-    template_name = 'presupuestos/categorias_form.html'
-    context_object_name = 'categoria'
-    #success_message = "La categoria %(nombre) s se modificó correctamente."
-    #success_url = reverse_lazy('presupuestos:listado_de_categorias')
-
-    def form_valid(self, form):
-        categoria = form.save(commit=False)
-        actualizarCategoria(categoria.id, categoria.planeado)
-        categoria.save()
-        return redirect('presupuestos:listado_de_categorias', id_presupuesto=categoria.presupuesto.pk)
 
 def actualizarCategoria(idCategoria, inPlaneado):
     categoriaOld = Categoria.objects.get(id=idCategoria)

@@ -19,4 +19,6 @@ class Cuenta(models.Model):
     tipo = models.CharField(max_length=20, choices=TIPO, default= 'Debito')
     estado = models.CharField(max_length=20, choices=ESTADO, default= 'Activa')
     usuario = models.ForeignKey(User, related_name="cuentas_del_usuario", on_delete=models.CASCADE) 
-  	
+
+    def __str__(self):
+        return ("%s   %s   (%s)"%(self.nombre, self.tipo, self.saldo))

@@ -23,7 +23,7 @@ urlpatterns = [
     path('cuentas/', include ('apps.cuentas.urls', namespace='cuentas')),
     path('presupuestos/', include ('apps.presupuestos.urls', namespace='presupuestos')),
     path('usuarios/', include ('apps.usuarios.urls', namespace='usuarios')),
-    # path('transacciones/', include ('apps.transacciones.urls', namespace='transacciones')),
+    path('transacciones/', include ('apps.transacciones.urls', namespace='transacciones')),
 
     path('', views.LoginView.as_view(), name='home' ),
     url(r'^accounts/', include('allauth.urls'), name='accounts'),

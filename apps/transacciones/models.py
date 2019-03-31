@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 from apps.cuentas.models import Cuenta
 from apps.presupuestos.models import Categoria
@@ -15,3 +16,9 @@ class Transaccion(models.Model):
 	cuenta = models.ForeignKey(Cuenta, related_name="transacciones_de_la_cuenta", on_delete= models.CASCADE)#tarjeta
 	categoria = models.ForeignKey(Categoria, related_name="transacciones_de_la_categoria", on_delete=models.CASCADE)#almuerzos
 	tipo = models.CharField(max_length=20, choices=TIPO, default= 'Egreso')#egreso
+
+	def save(self, *args, **kwargs):
+
+		if not self.id:
+			self.fecha = timezone.now()
+		return super(Transaccion, self).save(*args, **kwargs)

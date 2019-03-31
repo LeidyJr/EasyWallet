@@ -28,3 +28,7 @@ class Categoria(models.Model):
 	actual = models.IntegerField()
 	diferencia = models.IntegerField()
 	presupuesto = models.ForeignKey(Presupuesto, related_name="categorias_del_presupuesto", on_delete=models.CASCADE)
+
+	def __str__(self):
+		return ("%s "%(self.nombre))
+

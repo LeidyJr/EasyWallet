@@ -74,4 +74,6 @@ def crear_categoria(request, id_presupuesto):
 def listado_de_categorias_del_presupuesto(request, id_presupuesto):
     presupuesto = get_object_or_404(Presupuesto, pk=id_presupuesto)
     categorias = presupuesto.categorias_del_presupuesto.all()
-    return render(request, 'presupuestos/listado_de_categorias.html',{'categorias':categorias})
+    nombre_presupuesto = presupuesto.nombre
+    return render(request, 'presupuestos/listado_de_categorias.html',{'categorias':categorias, 
+        'nombre_presupuesto': nombre_presupuesto, })

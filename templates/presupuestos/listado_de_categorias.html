@@ -8,12 +8,12 @@
 
           <!-- Page Heading -->
           <br/>
-          <h1 class="h3 mb-2 text-gray-800">Lista de categorías</h1>
+          <h1 class="h3 mb-2 text-gray-800">Lista de categorías del presupuesto: {{nombre_presupuesto}}</h1>
           <br/>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Lista de categorías</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Lista de categorías del presupuesto:  {{nombre_presupuesto}}</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -35,6 +35,7 @@
                             <td>{{ categoria.nombre }}</td>
                             <td>{{ categoria.planeado }}</td>
                             <td>{{ categoria.actual }}</td>
+                            <td>{{categoria.presupuesto.nombre}}</td>
                             
                         </tr>
                         {% endfor %}

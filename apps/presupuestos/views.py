@@ -41,7 +41,7 @@ def mis_presupuestos(request):
 class EditarPresupuesto(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Presupuesto
     form_class = PresupuestoForm
-    template_name = 'presupuestos/presupuestos_form.html'
+    template_name = 'presupuestos/presupuesto_editar.html'
     success_message = "El presupuesto %(nombre) s se modificó correctamente."
     success_url = reverse_lazy('presupuestos:listado_de_presupuestos')
 
@@ -89,7 +89,7 @@ def EditarCategoriaF(request,pk):
             actualizarCategoria(categoria.id, categoria.planeado)
             categoria.save()
         return redirect('presupuestos:listado_de_categorias', categoria.presupuesto.id)
-    return render(request, 'presupuestos/categorias_form.html', {'form':form, 'id_presupuesto':categoria.presupuesto.id})
+    return render(request, 'presupuestos/categoria_editar.html', {'form':form, 'id_presupuesto':categoria.presupuesto.id})
 
 def actualizarCategoria(idCategoria, inPlaneado):
     categoriaOld = Categoria.objects.get(id=idCategoria)

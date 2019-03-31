@@ -89,7 +89,7 @@ def EditarCategoriaF(request,pk):
             actualizarCategoria(categoria.id, categoria.planeado)
             categoria.save()
         return redirect('presupuestos:listado_de_categorias', categoria.presupuesto.id)
-    return render(request, 'presupuestos/categorias_form.html', {'form':form})
+    return render(request, 'presupuestos/categorias_form.html', {'form':form, 'id_presupuesto':categoria.presupuesto.id})
 
 def actualizarCategoria(idCategoria, inPlaneado):
     categoriaOld = Categoria.objects.get(id=idCategoria)

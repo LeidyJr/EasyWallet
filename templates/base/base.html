@@ -64,6 +64,20 @@
         </div>
       </li>
       <!-- Divider -->
+      <!-- Nav Item - Event Menu -->
+      <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-money-check-alt"></i>
+          <span>Presupuestos</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{% url 'presupuestos:listado_de_presupuestos' %}">Listado de presupuestos</a>
+            <a class="collapse-item" href="{% url 'presupuestos:registrar_presupuesto' %}">Registrar</a>
+          </div>
+        </div>
+      </li>
+      <!-- Divider -->
       <hr class="sidebar-divider">
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">

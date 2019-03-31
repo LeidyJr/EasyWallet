@@ -1,6 +1,6 @@
 {% extends 'base/tables.html' %}
 {% load bootstrap4 %}
-{% block title %} Lista de compras {% endblock %}
+{% block title %} Lista de categorías {% endblock %}
 
 {% block content %}
 <!-- Begin Page Content -->
@@ -8,12 +8,12 @@
 
           <!-- Page Heading -->
           <br/>
-          <h1 class="h3 mb-2 text-gray-800">Mis compras</h1>
+          <h1 class="h3 mb-2 text-gray-800">Lista de categorías</h1>
           <br/>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Mis compras</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Lista de categorías</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -21,27 +21,25 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Vendedor</th>
-                            <th scope="col">Total</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Planeado</th>
+                            <th scope="col">Actual</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% if compras %}
-                        {% for compra in compras %}
+                    {% if categorias  %}
+                        {% for categoria in categorias  %}
                         <tr class="table-primary">
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ compra.fecha }}</td>
-                            <td>{{ compra.vendedor }}</td>
-                            <td>{{ compra.total }}</td>
-                            <td>
-                                <a class="btn btn-info" href="{% url 'ventas:factura' compra.id %}">Ver factura</a>
-                            </td>
+                            <td>{{ categoria.nombre }}</td>
+                            <td>{{ categoria.planeado }}</td>
+                            <td>{{ categoria.actual }}</td>
+                            
                         </tr>
                         {% endfor %}
                     {% else %}
-                    <h1> No hay compras </h1>
+                    <h1> No hay categorías </h1>
                     {% endif %}
                     </tbody>
                 </table>
@@ -51,4 +49,5 @@
 
         </div>
         <!-- /.container-fluid -->
-{% endblock %}
+
+{% endblock %}categorías

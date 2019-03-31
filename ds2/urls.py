@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import url, include
+from django.conf.urls import url, include, handler404
 from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cuentas/', include ('apps.cuentas.urls', namespace='cuentas')),
-    # path('presupuestos/', include ('apps.presupuestos.urls', namespace='presupuestos')),
+    path('presupuestos/', include ('apps.presupuestos.urls', namespace='presupuestos')),
     path('usuarios/', include ('apps.usuarios.urls', namespace='usuarios')),
     # path('transacciones/', include ('apps.transacciones.urls', namespace='transacciones')),
 

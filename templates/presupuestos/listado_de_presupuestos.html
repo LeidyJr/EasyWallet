@@ -1,6 +1,6 @@
 {% extends 'base/tables.html' %}
 {% load bootstrap4 %}
-{% block title %} Lista de ventas {% endblock %}
+{% block title %} Lista de presupuestos {% endblock %}
 
 {% block content %}
 <!-- Begin Page Content -->
@@ -8,12 +8,12 @@
 
           <!-- Page Heading -->
           <br/>
-          <h1 class="h3 mb-2 text-gray-800">Mis ventas</h1>
+          <h1 class="h3 mb-2 text-gray-800">Lista de presupuestos</h1>
           <br/>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Mis ventas</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Lista de presupuestos</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -21,29 +21,29 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Vendedor</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Cliente</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Planeado</th>
+                            <th scope="col">Actual</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% if ventas %}
-                        {% for venta in ventas %}
+                    {% if presupuestos  %}
+                        {% for presupuesto in presupuestos  %}
                         <tr class="table-primary">
                             <td>{{ forloop.counter }}</td>
-                            <td>{{ venta.fecha }}</td>
-                            <td>{{ venta.vendedor }}</td>
-                            <td>{{ venta.total }}</td>
-                            <td>{{ venta.cliente }}</td>
+                            <td>{{ presupuesto.nombre }}</td>
+                            <td>{{ presupuesto.total_planeado }}</td>
+                            <td>{{ presupuesto.total_actual }}</td>
                             <td>
-                                <a class="btn btn-info" href="{% url 'ventas:factura' venta.id %}">Ver factura</a>
+                                <a class="btn btn-warning" href="{% url 'presupuestos:editar_presupuesto' presupuesto.id %}">Editar</a>
+                                <a class="btn btn-warning" href="{% url 'presupuestos:registrar_categoria' presupuesto.id %}"> + Categoría</a>
+                                <a class="btn btn-warning" href="{% url 'presupuestos:listado_de_categorias' presupuesto.id %}">Categorías</a>
                             </td>
                         </tr>
                         {% endfor %}
                     {% else %}
-                    <h1> No hay ventas </h1>
+                    <h1> No hay presupuestos </h1>
                     {% endif %}
                     </tbody>
                 </table>
@@ -53,4 +53,5 @@
 
         </div>
         <!-- /.container-fluid -->
+
 {% endblock %}

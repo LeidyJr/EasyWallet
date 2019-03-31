@@ -43,3 +43,4 @@ class EditarCuenta(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'cuentas/cuentas_form.html'
     success_message = "La cuenta %(nombre)s se modificó correctamente."
     success_url = reverse_lazy('cuentas:listado_de_cuentas')
+

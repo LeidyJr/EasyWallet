@@ -34,8 +34,10 @@ def crear_transaccion(request):
             	transaccion.categoria.presupuesto.total_actual +=transaccion.valor
             	transaccion.cuenta.save()
             	transaccion.categoria.save()
+            	transaccion.categoria.presupuesto.save()
             else:
-            	pass
+            	transaccion.cuenta.saldo += transaccion.valor
+            	transaccion.cuenta.save()
             messages.success(request, 'La transacción se registró correctamente.')
             return redirect('presupuestos:listado_de_presupuestos')
         else:

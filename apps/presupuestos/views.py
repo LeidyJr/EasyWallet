@@ -78,18 +78,33 @@ def listado_de_categorias_del_presupuesto(request, id_presupuesto):
     return render(request, 'presupuestos/listado_de_categorias.html',{'categorias':categorias, 
         'nombre_presupuesto': nombre_presupuesto, })
 
-class EditarCategoria(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+def EditarCategoriaF(request,pk):
+    categoria = Categoria.objects.get(id=pk)
+    if request.method == 'GET':
+        form = CategoriaForm(instance=categoria)
+    else:
+        form = CategoriaForm(request.POST, instance=categoria)
+        if form.is_valid():
+            categoria = form.save(commit=False)
+            actualizarCategoria(categoria.id, categoria.planeado)
+            categoria.save()
+        return redirect('presupuestos:listado_de_presupuestos')
+    return render(request, 'presupuestos/categorias_form.html', {'form':form})
+
+
+class EditarCategoria(UpdateView):
     model = Categoria
-    fields = ('planeado',)
+    fields = ('planeado', )
     template_name = 'presupuestos/categorias_form.html'
-    success_message = "La categoria %(nombre) s se modificó correctamente."
+    context_object_name = 'categoria'
+    #success_message = "La categoria %(nombre) s se modificó correctamente."
     #success_url = reverse_lazy('presupuestos:listado_de_categorias')
 
     def form_valid(self, form):
         categoria = form.save(commit=False)
         actualizarCategoria(categoria.id, categoria.planeado)
         categoria.save()
-        return redirect('presupuestos:listado_de_categorias')
+        return redirect('presupuestos:listado_de_categorias', id_presupuesto=categoria.presupuesto.pk)
 
 def actualizarCategoria(idCategoria, inPlaneado):
     categoriaOld = Categoria.objects.get(id=idCategoria)

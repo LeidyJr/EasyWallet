@@ -75,3 +75,28 @@ def listado_de_categorias_del_presupuesto(request, id_presupuesto):
     presupuesto = get_object_or_404(Presupuesto, pk=id_presupuesto)
     categorias = presupuesto.categorias_del_presupuesto.all()
     return render(request, 'presupuestos/listado_de_categorias.html',{'categorias':categorias})
+
+class EditarCategoria(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Categoria
+    fields = ('planeado',)
+    template_name = 'presupuestos/categorias_form.html'
+    success_message = "La categoria %(nombre) s se modificó correctamente."
+    #success_url = reverse_lazy('presupuestos:listado_de_categorias')
+
+    def form_valid(self, form):
+        categoria = form.save(commit=False)
+        actualizarCategoria(categoria.id, categoria.planeado)
+        categoria.save()
+        return redirect('presupuestos:listado_de_categorias')
+
+def actualizarCategoria(idCategoria, inPlaneado):
+    categoriaOld = Categoria.objects.get(id=idCategoria)
+    presupuesto = Presupuesto.objects.get(id=str(categoriaOld.presupuesto.id))
+    presupuesto.total_planeado -=  categoriaOld.planeado
+    presupuesto.total_planeado += inPlaneado
+    if categoriaOld.actual != 0:
+        categoriaOld.diferencia += (inPlaneado - categoriaOld.actual)
+    else:
+        categoriaOld.diferencia = inPlaneado
+    presupuesto.save()
+    categoriaOld.save()

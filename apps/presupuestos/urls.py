@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^editar/(?P<pk>\d+)/$', view=EditarPresupuesto.as_view(), name='editar_presupuesto'),
     url(regex=r"^registrar_categoria/(?P<id_presupuesto>[\w-]+)$", view=crear_categoria, name="registrar_categoria"),
     url(regex=r"^listado_de_categorias/(?P<id_presupuesto>[\w-]+)$", view=listado_de_categorias_del_presupuesto, name="listado_de_categorias"),
+    url(regex=r"^editar_categoria/(?P<pk>[\w-]+)$", view=EditarCategoria, name="editar_categoria"),
 ]

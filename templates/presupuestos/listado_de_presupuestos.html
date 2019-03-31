@@ -37,8 +37,8 @@
                             <td>{{ presupuesto.total_actual }}</td>
                             <td>
                                 <a class="btn btn-warning" href="{% url 'presupuestos:editar_presupuesto' presupuesto.id %}">Editar</a>
-                                <a class="btn btn-warning" href="{% url 'presupuestos:registrar_categoria' presupuesto.id %}"> + Categoría</a>
-                                <a class="btn btn-warning" href="{% url 'presupuestos:listado_de_categorias' presupuesto.id %}">Categorías</a>
+                                <a class="btn btn-info" href="{% url 'presupuestos:registrar_categoria' presupuesto.id %}"> + Categoría</a>
+                                <a class="btn btn-success" href="{% url 'presupuestos:listado_de_categorias' presupuesto.id %}">Categorías</a>
                             </td>
                         </tr>
                         {% endfor %}

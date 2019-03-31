@@ -35,7 +35,8 @@
                             <td>{{ categoria.nombre }}</td>
                             <td>{{ categoria.planeado }}</td>
                             <td>{{ categoria.actual }}</td>
-                            <td>{{categoria.presupuesto.nombre}}</td>
+                            <td><a class="btn btn-warning" href="{% url 'presupuestos:editar_categoria' categoria.id %}">Editar</a>
+                            </td>
                             
                         </tr>
                         {% endfor %}

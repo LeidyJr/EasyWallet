@@ -8,4 +8,5 @@ app_name='usuarios'
 
 urlpatterns = [
     url('signup', signup, name='signup'),
+    url('inicio', view=Inicio, name='inicio'),
     ]

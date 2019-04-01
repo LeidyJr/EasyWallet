@@ -23,3 +23,7 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(request, 'usuarios/signup.html', {'form': form})
+
+def Inicio(request):
+    cuentas = request.user.cuentas_del_usuario.filter(estado='Activa')
+    return render(request,'usuarios/inicio.html',{'cuentas':cuentas})

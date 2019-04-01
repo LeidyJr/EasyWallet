@@ -45,7 +45,7 @@ def crear_transaccion(request):
 			return redirect('presupuestos:listado_de_presupuestos')
 		else:
 			messages.error(request, "Error")
-	return render(request, 'transacciones/transaccion_form.html', {'form':form_class()})
+	return render(request, 'transacciones/transaccion_form.html', {'form':form_class(request)})
 
 @login_required
 def mis_ingresos(request):

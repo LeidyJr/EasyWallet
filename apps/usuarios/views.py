@@ -26,4 +26,6 @@ def signup(request):
 
 def Inicio(request):
     cuentas = request.user.cuentas_del_usuario.filter(estado='Activa')
+    presupuestos = request.user.presupuestos_del_usuario.filter(mes__month=4)
+    print(presupuestos)
     return render(request,'usuarios/inicio.html',{'cuentas':cuentas})

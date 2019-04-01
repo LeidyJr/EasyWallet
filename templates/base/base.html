@@ -78,6 +78,21 @@
         </div>
       </li>
       <!-- Divider -->
+      <!-- Nav Item - Event Menu -->
+      <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo2" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-money-check-alt"></i>
+          <span>Transacciones</span>
+        </a>
+        <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{% url 'transacciones:registrar_transaccion' %}">Listado de ingresos</a>
+            <a class="collapse-item" href="{% url 'transacciones:registrar_transaccion' %}">Listado de egresos</a>
+            <a class="collapse-item" href="{% url 'transacciones:registrar_transaccion' %}">Registrar</a>
+          </div>
+        </div>
+      </li>
+      <!-- Divider -->
       <hr class="sidebar-divider">
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">

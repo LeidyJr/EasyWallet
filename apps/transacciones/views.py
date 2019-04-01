@@ -11,6 +11,7 @@ from apps.presupuestos.models import Presupuesto, Categoria
 from apps.cuentas.models import Cuenta
 
 from .forms import TransaccionForm
+from .models import Transaccion
 
 
 @login_required
@@ -43,3 +44,8 @@ def crear_transaccion(request):
         else:
             messages.error(request, "Error")
     return render(request, 'transacciones/transaccion_form.html', {'form':form_class()})
+
+@login_required
+def mis_ingresos(request):
+    ingresos = request.cuenta.transacciones_de_la_cuenta.filter(estado='Ingreso')
+    return render(request, 'transacciones/listado_de_transacciones.html',{'transacciones':ingresos})

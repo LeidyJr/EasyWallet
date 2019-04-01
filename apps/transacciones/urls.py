@@ -8,6 +8,6 @@ app_name='transacciones'
 
 urlpatterns = [
 
-    url(regex=r"^registrar$", view=crear_transaccion, name="registrar_presupuesto"),
+    url(regex=r"^registrar$", view=crear_transaccion, name="registrar_transaccion"),
 
 ]

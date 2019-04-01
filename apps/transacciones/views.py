@@ -18,19 +18,13 @@ from .models import Cuenta
 @login_required
 def crear_transaccion(request):
 
-	form_class = TransaccionForm
+	form = TransaccionForm(usuario=request.user)
 	if request.method == "POST":
-		form = form_class(request.POST)
+		form = TransaccionForm(request.POST, usuario=request.user)
 		if form.is_valid():
-			transaccion = form.save(commit=False)
-			transaccion.descripcion = form.cleaned_data["descripcion"]
-			transaccion.valor = form.cleaned_data["valor"]
-			transaccion.tipo = form.cleaned_data["tipo"]
-			transaccion.cuenta = form.cleaned_data["cuenta"]
-			transaccion.categoria = form.cleaned_data["categoria"]
+			transaccion = form.save()
 			transaccion.save()
 			if transaccion.tipo == 'Egreso':
-
 				transaccion.cuenta.saldo -= transaccion.valor
 				transaccion.categoria.actual += transaccion.valor
 				transaccion.categoria.presupuesto.total_actual +=transaccion.valor
@@ -45,7 +39,7 @@ def crear_transaccion(request):
 			return redirect('presupuestos:listado_de_presupuestos')
 		else:
 			messages.error(request, "Error")
-	return render(request, 'transacciones/transaccion_form.html', {'form':form_class(request)})
+	return render(request, 'transacciones/transaccion_form.html', {'form':form})
 
 @login_required
 def mis_ingresos(request):

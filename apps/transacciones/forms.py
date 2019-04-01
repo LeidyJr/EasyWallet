@@ -30,8 +30,10 @@ class TransaccionForm(forms.ModelForm):
 		data = self.cleaned_data.get('tipo')
 		return data
 
-	def __init__(self,request,*args,**kwargs):
+	def __init__(self,*args,**kwargs):
+		self.usuario = kwargs.pop('usuario')
 		super (TransaccionForm,self ).__init__(*args,**kwargs) 
 		from apps.presupuestos.models import Categoria
-		self.fields['cuenta'].queryset = request.user.cuentas_del_usuario.filter(estado='Activa')
-		self.fields['categoria'].queryset = Categoria.objects.filter(presupuesto__usuario=request.user)
+		from apps.cuentas.models import Cuenta
+		self.fields['cuenta'].queryset = Cuenta.objects.filter(usuario= self.usuario, estado='Activa')
+		self.fields['categoria'].queryset = Categoria.objects.filter(presupuesto__usuario=self.usuario)

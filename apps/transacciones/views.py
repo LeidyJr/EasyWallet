@@ -12,6 +12,7 @@ from apps.cuentas.models import Cuenta
 
 from .forms import TransaccionForm
 from .models import Transaccion
+from .models import Cuenta
 
 
 @login_required
@@ -47,5 +48,12 @@ def crear_transaccion(request):
 
 @login_required
 def mis_ingresos(request):
-    ingresos = request.cuenta.transacciones_de_la_cuenta.filter(estado='Ingreso')
-    return render(request, 'transacciones/listado_de_transacciones.html',{'transacciones':ingresos})
+    cuentas = get_object_or_404(Cuenta)
+    transacciones = cuentas.transacciones_de_la_cuenta.filter(tipo='Ingreso')
+    return render(request, 'transacciones/listado_de_transacciones.html',{'transacciones':transacciones})
+
+@login_required
+def mis_egresos(request):
+    cuentas = get_object_or_404(Cuenta)
+    transacciones = cuentas.transacciones_de_la_cuenta.filter(tipo='Egreso')
+    return render(request, 'transacciones/listado_de_transacciones.html',{'transacciones':transacciones})

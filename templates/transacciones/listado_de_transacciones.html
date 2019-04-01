@@ -34,6 +34,7 @@
                         {% for transaccion in transacciones  %}
                         <tr class="table-primary">
                             <td>{{ forloop.counter }}</td>
+                            <td>{{ transaccion.fecha }}</td>
                             <td>{{ transaccion.descripcion }}</td>
                             <td>{{ transaccion.valor }}</td>
                             <td>{{ transaccion.cuenta }}</td>

@@ -64,7 +64,7 @@ def crear_categoria(request, id_presupuesto):
             categoria.save()
             presupuesto.save()
             messages.success(request, 'La categoria se registró correctamente.')
-            return redirect('presupuestos:listado_de_presupuestos')
+            return redirect('presupuestos:listado_de_categorias', id_presupuesto)
         else:
             messages.error(request, "Error")
     return render(request, 'presupuestos/categorias_form.html', {'form':form_class(), 'id_presupuesto':id_presupuesto})
@@ -76,7 +76,7 @@ def listado_de_categorias_del_presupuesto(request, id_presupuesto):
     categorias = presupuesto.categorias_del_presupuesto.all()
     nombre_presupuesto = presupuesto.nombre
     return render(request, 'presupuestos/listado_de_categorias.html',{'categorias':categorias, 
-        'nombre_presupuesto': nombre_presupuesto, })
+        'nombre_presupuesto': nombre_presupuesto, 'id_presupuesto':id_presupuesto})
 
 @login_required
 def EditarCategoriaF(request,pk):

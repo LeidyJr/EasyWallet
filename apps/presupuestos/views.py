@@ -59,7 +59,7 @@ def crear_categoria(request, id_presupuesto):
             categoria.nombre = form.cleaned_data["nombre"]
             categoria.planeado = form.cleaned_data["planeado"]
             categoria.actual = 0
-            categoria.diferencia = 0
+            categoria.diferencia = form.cleaned_data["planeado"]
             presupuesto.total_planeado += categoria.planeado
             categoria.save()
             presupuesto.save()
@@ -67,7 +67,7 @@ def crear_categoria(request, id_presupuesto):
             return redirect('presupuestos:listado_de_presupuestos')
         else:
             messages.error(request, "Error")
-    return render(request, 'presupuestos/categorias_form.html', {'form':form_class()})
+    return render(request, 'presupuestos/categorias_form.html', {'form':form_class(), 'id_presupuesto':id_presupuesto})
 
 
 @login_required
@@ -87,6 +87,7 @@ def EditarCategoriaF(request,pk):
         form = CategoriaForm(request.POST, instance=categoria)
         if form.is_valid():
             categoria = form.save(commit=False)
+            categoria.diferencia = categoria.planeado
             actualizarCategoria(categoria.id, categoria.planeado)
             categoria.save()
         return redirect('presupuestos:listado_de_categorias', categoria.presupuesto.id)
@@ -100,6 +101,7 @@ def actualizarCategoria(idCategoria, inPlaneado):
     if categoriaOld.actual != 0:
         categoriaOld.diferencia += (inPlaneado - categoriaOld.actual)
     else:
+        print("ENTRO POR AQUI")
         categoriaOld.diferencia = inPlaneado
     presupuesto.save()
     categoriaOld.save()

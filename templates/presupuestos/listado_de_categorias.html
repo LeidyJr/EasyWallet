@@ -24,6 +24,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Planeado</th>
                             <th scope="col">Actual</th>
+                            <th scope="col">Diferencia</th>
                             <th scope="col">Acciones</th>
                         </tr>
                     </thead>
@@ -35,6 +36,7 @@
                             <td>{{ categoria.nombre }}</td>
                             <td>{{ categoria.planeado }}</td>
                             <td>{{ categoria.actual }}</td>
+                            <td>{{ categoria.diferencia }}</td>
                             <td><a class="btn btn-warning" href="{% url 'presupuestos:editar_categoria' categoria.id %}">Editar</a>
                             </td>
                             

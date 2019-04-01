@@ -8,14 +8,19 @@
 
           <!-- Page Heading -->
           <br/>
-          <h1 class="h3 mb-2 text-gray-800">Lista de categorías del presupuesto: {{nombre_presupuesto}}</h1>
-          <br/>
+          <h1 class="h3 mb-2 text-gray-800">Categorías del presupuesto: {{nombre_presupuesto}}</h1>
+          
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Lista de categorías del presupuesto:  {{nombre_presupuesto}} </h6>
-              <br/>
-              <a class="btn btn-success" href="{% url 'presupuestos:registrar_categoria' id_presupuesto %}"> <span class="text">Añadir Categoría</span></a>
+              <div class="row">
+                <div class="col align-items-left">
+                  <h6 class="m-0 font-weight-bold text-primary">Lista de categorías del presupuesto:  {{nombre_presupuesto}} </h6>
+                </div>
+                <div class="col align-items-right">                  
+                    <a href="{% url 'presupuestos:listado_de_presupuestos' %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a> <a class="btn btn-success" href="{% url 'presupuestos:registrar_categoria' id_presupuesto %}"> <span class="text">Añadir Categoría</span></a>                 
+                </div>
+              </div>                      
 
             </div>
             <div class="card-body">
@@ -50,7 +55,7 @@
                     {% endif %}
                     </tbody>
                 </table>
-                <a href="{% url 'presupuestos:listado_de_presupuestos' %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a>          
+                          
               </div>
             </div>
           </div>

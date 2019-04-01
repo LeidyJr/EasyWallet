@@ -29,4 +29,9 @@ class TransaccionForm(forms.ModelForm):
 	def clean_tipo(self):
 		data = self.cleaned_data.get('tipo')
 		return data
-	
+
+	def __init__(self,request,*args,**kwargs):
+		super (TransaccionForm,self ).__init__(*args,**kwargs) 
+		from apps.presupuestos.models import Categoria
+		self.fields['cuenta'].queryset = request.user.cuentas_del_usuario.filter(estado='Activa')
+		self.fields['categoria'].queryset = Categoria.objects.filter(presupuesto__usuario=request.user)

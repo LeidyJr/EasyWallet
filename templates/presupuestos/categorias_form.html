@@ -17,8 +17,8 @@
 				<form method="post">
 					{% csrf_token %}
 					{% bootstrap_form form %}
-					<button type="submit" class="btn btn-success">Guardar</button>
-					<a href="{% url 'presupuestos:listado_de_categorias' id_presupuesto %}" class="btn btn-primary">Volver</a>
+					<a href="{% url 'presupuestos:listado_de_categorias' id_presupuesto %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a>
+					<button type="submit" class="btn btn-success btn-icon-split"><span class="icon text-white-50"><i class="fas fa-check"></i></span><span class="text">Guardar</span></button>					
 				</form>
 			</div>
 		</div>

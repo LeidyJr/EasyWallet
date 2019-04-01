@@ -29,3 +29,12 @@ class CuentaForm(forms.ModelForm):
 	def clean_estado(self):
 		data = self.cleaned_data.get('estado')
 		return data
+class EditarCuentaForm(forms.ModelForm):
+	class Meta:
+		model = Cuenta
+		fields = ("nombre" ,"tipo", "estado", )
+		labels = {
+		"nombre": "Nombre: ", 
+		"tipo": "Tipo: ",
+		"estado": "Estado: "
+		}

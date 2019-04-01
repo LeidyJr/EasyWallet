@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
 from .models import Cuenta
-from .forms import CuentaForm
+from .forms import CuentaForm, EditarCuentaForm
 
 @login_required
 def crear_cuenta(request):
@@ -39,8 +39,8 @@ def mis_cuentas(request):
 
 class EditarCuenta(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Cuenta
-    form_class = CuentaForm
-    template_name = 'cuentas/cuentas_form.html'
+    form_class = EditarCuentaForm
+    template_name = 'cuentas/cuentas_editar.html'
     success_message = "La cuenta %(nombre)s se modificó correctamente."
     success_url = reverse_lazy('cuentas:listado_de_cuentas')
 

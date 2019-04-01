@@ -18,7 +18,9 @@
                   <h6 class="m-0 font-weight-bold text-primary">Lista de cuentas</h6>
                 </div>
                 <div class="col align-items-right">                  
-                    <a href="{% url 'usuarios:inicio' %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a> <a class="btn btn-success" href="{% url 'cuentas:registrar_cuenta' %}"> <span class="text">Añadir Cuenta</span></a>                  
+                    <div class="align-items-right">
+                      <a href="{% url 'usuarios:inicio' %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a> <a class="btn btn-success" href="{% url 'cuentas:registrar_cuenta' %}"> <span class="text">Añadir Cuenta</span></a>
+                    </div>                  
                 </div>
               </div>              
             </div>

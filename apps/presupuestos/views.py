@@ -78,6 +78,7 @@ def listado_de_categorias_del_presupuesto(request, id_presupuesto):
     return render(request, 'presupuestos/listado_de_categorias.html',{'categorias':categorias, 
         'nombre_presupuesto': nombre_presupuesto, })
 
+@login_required
 def EditarCategoriaF(request,pk):
     categoria = Categoria.objects.get(id=pk)
     if request.method == 'GET':

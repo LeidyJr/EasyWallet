@@ -1,12 +1,14 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, TemplateView
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from functools import wraps
+from chartjs.views.lines import BaseLineChartView
 
 from apps.usuarios.forms import SignUpForm
 from apps.usuarios.models import User
+from apps.cuentas.models import Cuenta
 
 def signup(request):
     if request.method == 'POST':
@@ -27,3 +29,23 @@ def signup(request):
 def Inicio(request):
     cuentas = request.user.cuentas_del_usuario.filter(estado='Activa')
     return render(request,'usuarios/inicio.html',{'cuentas':cuentas})
+
+
+class CuentasSaldo(BaseLineChartView):
+    def get_labels(self):
+        nombres_cuentas = list(Cuenta.objects.all().values_list("nombre", flat=True))
+        return nombres_cuentas
+
+    def get_providers(self):
+        return [" Saldo "]
+
+    def get_data(self):
+        cuentas = Cuenta.objects.all()
+        saldo_cuentas = []
+        for cuenta in cuentas:
+            saldo_cuenta = cuenta.saldo
+            saldo_cuentas.append(saldo_cuenta)
+        return [saldo_cuentas]
+
+vista_cuentas_y_saldo = TemplateView.as_view(template_name='usuarios/inicio.html')
+cuentas_y_saldo_json = CuentasSaldo.as_view()

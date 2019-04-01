@@ -48,12 +48,22 @@ def crear_transaccion(request):
 
 @login_required
 def mis_ingresos(request):
-    cuentas = get_object_or_404(Cuenta)
-    transacciones = cuentas.transacciones_de_la_cuenta.filter(tipo='Ingreso')
+    cuentas = Cuenta.objects.filter(usuario=request.user.id)
+    transacciones = []
+    for i in range(len(cuentas)):
+        transaccionesIn = Transaccion.objects.filter(tipo='Ingreso', cuenta=cuentas[i])
+        if len(transaccionesIn) != 0:
+            for i in range(len(transaccionesIn)):
+                transacciones.append(transaccionesIn[i])
     return render(request, 'transacciones/listado_de_transacciones.html',{'transacciones':transacciones})
 
 @login_required
 def mis_egresos(request):
-    cuentas = get_object_or_404(Cuenta)
-    transacciones = cuentas.transacciones_de_la_cuenta.filter(tipo='Egreso')
+    cuentas = Cuenta.objects.filter(usuario=request.user.id)
+    transacciones = []
+    for i in range(len(cuentas)):
+        transaccionesIn = Transaccion.objects.filter(tipo='Egreso', cuenta=cuentas[i])
+        if len(transaccionesIn) != 0:
+            for i in range(len(transaccionesIn)):
+                transacciones.append(transaccionesIn[i])
     return render(request, 'transacciones/listado_de_transacciones.html',{'transacciones':transacciones})

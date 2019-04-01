@@ -43,7 +43,7 @@
         <div class="sidebar-brand-text mx-3">EasyWallet </div>
       </a>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{% url 'usuarios:inicio' %}">
           <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
           <span>Inicio</span></a>
       </li>
@@ -115,7 +115,7 @@
       <!-- Main Content -->
       <div id="content">
 
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-0 static-top shadow">
           <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
               <div class="sidebar-brand-text mx-3">Bienvenido, {{request.user}} </div>
             </a>

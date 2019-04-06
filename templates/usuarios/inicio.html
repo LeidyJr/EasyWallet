@@ -43,6 +43,41 @@
                 </div>
               </div>              
             </div>
+
+            <!-- PRESUPUESTOS -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Presupuestos</h6>
+              </div>
+              <div class="card-body">
+                  {% if presupuestos  %}
+                    <div class="row">
+                    {% for presupuesto in presupuestos  %}
+                      <!-- Donut Chart -->
+                      <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                          <!-- Card Header - Dropdown -->
+                          <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">{{presupuesto.nombre}}</h6>
+                          </div>
+                          <!-- Card Body -->
+                          <div class="card-body">
+                            <div class="chart-pie pt-4">
+                              <canvas id="{{presupuesto.nombre}}"></canvas>
+                            </div>
+                            <hr>
+                            Styling for the donut chart can be found in the <code>/js/demo/chart-pie-demo.js</code> file.
+                          </div>
+                        </div>
+                      </div>
+                      <!-- donutChart-->
+                    {% endfor %}
+                  {% else %}
+                  <h1> No hay presupuestos </h1>
+                  {% endif %}
+                </div>
+              </div>              
+            </div>
           <div class="row">
 
           </div>
@@ -62,14 +97,29 @@
                 </div>
             </div>
         </div>
+        <!--<input type="text" 
+                      name="donut_chart" 
+                      id="donut_chart" 
+                      style="display: none"
+                      value="{{presupuestos}}">-->
 
 {% endblock content %}
 
 
 {% block extrajs %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<!--<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>-->
 <script type="text/javascript">
+  $(document).ready(function(){
+    var x = document.getElementById('donut_chart').value;
+    //var query = JSON.parse(x);
+    console.log(x);
+    //$.get('',function(data){
+
+    //});
+  });
+  /*
     options = {
         scales: {
             yAxes: [{
@@ -87,6 +137,6 @@
         new Chart(ctx, {
             type: 'bar', data: data, options:options
         });
-    });
+    });*/
 </script>
 {% endblock %} 

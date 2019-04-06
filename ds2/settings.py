@@ -170,7 +170,7 @@ STATIC_URL = '/static/'
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (

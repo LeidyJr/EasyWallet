@@ -102,6 +102,17 @@ DATABASES = {
     )
 }
 
+"""DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'EasyWallet',
+        'USER': 'easywallet',
+        'PASSWORD': 'leidy',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}"""
+
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',

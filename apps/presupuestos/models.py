@@ -4,11 +4,15 @@ from django.utils import timezone
 from apps.usuarios.models import User
 
 class Presupuesto(models.Model):
-
+	TIPOS=(
+		('Egreso','Egreso'),
+		('Ingreso','Ingreso'),
+		)
 	nombre = models.CharField(max_length=15, verbose_name="Nombre del presupuesto")#universidad
 	mes = models.DateField(editable=False)#agosto
 	total_planeado = models.IntegerField()
 	total_actual =models.IntegerField()
+	tipo = models.CharField(max_length=20,choices=TIPOS, default="Egreso")
 	usuario = models.ForeignKey(User, related_name="presupuestos_del_usuario", on_delete=models.CASCADE)
 
 	def __str__(self):

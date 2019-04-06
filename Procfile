@@ -1,1 +1,1 @@
-web: gunicorn EasyWallet.wsgi
+web: gunicorn ds2.wsgi

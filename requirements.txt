@@ -2,6 +2,7 @@ asn1crypto==0.24.0
 certifi==2019.3.9
 cffi==1.11.5
 chardet==3.0.4
+conda==4.6.8
 cryptography==2.4.2
 defusedxml==0.5.0
 dj-database-url==0.5.0
@@ -17,8 +18,10 @@ django-tempus-dominus==5.1.2.4
 djangorestframework==3.9.2
 gunicorn==19.9.0
 idna==2.8
+menuinst==1.4.14
 oauthlib==3.0.1
 psycopg2==2.7.7
+psycopg2-binary==2.8
 pycosat==0.6.3
 pycparser==2.19
 pyOpenSSL==18.0.0
@@ -26,6 +29,7 @@ PySocks==1.6.8
 python-decouple==3.1
 python3-openid==3.1.0
 pytz==2018.9
+pywin32==223
 requests==2.21.0
 requests-oauthlib==1.2.0
 ruamel-yaml==0.15.46

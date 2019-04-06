@@ -1,1 +1,1 @@
-web: gunicorn ds2.wsgi --log-file -
+web: gunicorn EasyWallet.wsgi --log-file -

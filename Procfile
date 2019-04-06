@@ -1,1 +1,1 @@
-web: gunicorn EasyWallet.wsgi --log-file -
+web: gunicorn EasyWallet.wsgi

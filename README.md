@@ -1,0 +1,2 @@
+# EasyWallet
+Academic project 

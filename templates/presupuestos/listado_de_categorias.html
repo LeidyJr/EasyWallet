@@ -1,0 +1,66 @@
+{% extends 'base/tables.html' %}
+{% load bootstrap4 %}
+{% block title %} Lista de categorías {% endblock %}
+
+{% block content %}
+<!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <br/>
+          <h1 class="h3 mb-2 text-gray-800">Categorías del presupuesto: {{nombre_presupuesto}}</h1>
+          
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <div class="row">
+                <div class="col align-items-left">
+                  <h6 class="m-0 font-weight-bold text-primary">Lista de categorías del presupuesto:  {{nombre_presupuesto}} </h6>
+                </div>
+                <div class="col align-items-right">                  
+                    <a href="{% url 'presupuestos:listado_de_presupuestos' %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a> <a class="btn btn-success" href="{% url 'presupuestos:registrar_categoria' id_presupuesto %}"> <span class="text">Añadir Categoría</span></a>                 
+                </div>
+              </div>                      
+
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Planeado</th>
+                            <th scope="col">Actual</th>
+                            <th scope="col">Diferencia</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% if categorias  %}
+                        {% for categoria in categorias  %}
+                        <tr class="table-primary">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ categoria.nombre }}</td>
+                            <td>{{ categoria.planeado }}</td>
+                            <td>{{ categoria.actual }}</td>
+                            <td>{{ categoria.diferencia }}</td>
+                            <td><a class="btn btn-info" href="{% url 'presupuestos:editar_categoria' categoria.id %}">Editar</a>
+                            </td>
+                            
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                    <h1> No hay categorías </h1>
+                    {% endif %}
+                    </tbody>
+                </table>
+                          
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+{% endblock %}categorías

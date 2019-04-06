@@ -1,0 +1,27 @@
+{% extends 'base/base.html' %}
+{% load bootstrap4 %}
+
+{{ form_evento.media }}
+{% block title %} Registrar presupuesto {% endblock %}
+{% block content %}
+	<div class="container-fluid">
+          <br/>
+          <h1 class="h3 mb-2 text-gray-800">Registrar presupuesto</h1>
+          <br/>
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Registrar presupuesto</h6>
+            </div>
+            <div class="card-body">
+				<form method="post">
+					{% csrf_token %}
+					{% bootstrap_form form %}
+					<a href="{% url 'presupuestos:listado_de_presupuestos' %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a>
+					<button type="submit" class="btn btn-success btn-icon-split"><span class="icon text-white-50"><i class="fas fa-check"></i></span><span class="text">Guardar</span></button>
+				</form>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

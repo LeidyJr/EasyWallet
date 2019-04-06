@@ -52,7 +52,7 @@
               <div class="card-body">
                   {% if presupuestos  %}
                     <div class="row">
-                    {% for presupuesto in presupuestos  %}
+                    {% for presupuesto in presupuestos %}
                       <!-- Donut Chart -->
                       <div class="col-xl-4 col-lg-5">
                         <div class="card shadow mb-4">
@@ -65,8 +65,9 @@
                             <div class="chart-pie pt-4">
                               <canvas id="{{presupuesto.nombre}}"></canvas>
                             </div>
-                            <hr>
-                            Styling for the donut chart can be found in the <code>/js/demo/chart-pie-demo.js</code> file.
+                            <div class="mt-4 text-center small" id="{{presupuesto.nombre}}_{{presupuesto.total_planeado}}">
+                              
+                            </div>                            
                           </div>
                         </div>
                       </div>
@@ -82,21 +83,6 @@
 
           </div>
         <!-- /.container-fluid -->
-
-        <div class="row">
-            <div class="col-xl-12 col-lg-12">
-                <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Informe de cuentas y saldos</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-bar">
-                    <canvas id="myChart"></canvas>
-                  </div>
-                </div>
-                </div>
-            </div>
-        </div>
         <!--<input type="text" 
                       name="donut_chart" 
                       id="donut_chart" 
@@ -108,35 +94,59 @@
 
 {% block extrajs %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<!--<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
-<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>-->
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
 <script type="text/javascript">
   $(document).ready(function(){
-    var x = document.getElementById('donut_chart').value;
-    //var query = JSON.parse(x);
-    console.log(x);
-    //$.get('',function(data){
-
-    //});
+      $.get('{% url "usuarios:getGraficPie" %}', function(data) {
+          console.log(data)
+          var colors = ["text-primary","text-success","text-info","text-warning","text-danger","text-secondary"]
+          for (var i = 0; i < data.length; i++) {
+            var ctx = document.getElementById(data[i].nombre);
+            console.log(data[i].nombre);
+            var tamañoCategoria = data[i].categorias.length;
+            var labelsIn = []
+            var dataIn = []
+            for (var x = 0; x < tamañoCategoria; x++) {
+              //console.log(data[i].categorias[x].categoria_nombre);
+              labelsIn.push(data[i].categorias[x].categoria_nombre);
+              dataIn.push(data[i].categorias[x].categoria_planeado);              
+              var addDiv = $(document.getElementById(data[i].nombre+"_"+data[i].total_planeado));
+              $(addDiv).append(" <span class='mr-2'><i class='fas fa-circle "+colors[x]+"'></i> "+data[i].categorias[x].categoria_nombre+"</span>");
+            }
+            new Chart(ctx, {
+              type:'doughnut',
+              data:{
+                labels: labelsIn,
+                datasets: [{
+                  data: dataIn,
+                  backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc','#f6c23e','#e74a3b','#858796'],
+                  hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+                  hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+              },
+              options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                  backgroundColor: "rgb(255,255,255)",
+                  bodyFontColor: "#858796",
+                  borderColor: '#dddfeb',
+                  borderWidth: 1,
+                  xPadding: 15,
+                  yPadding: 15,
+                  displayColors: false,
+                  caretPadding: 10,
+                },
+                legend: {
+                  display: false
+                },
+                cutoutPercentage: 80,
+              },
+            });
+          }
+      });
   });
-  /*
-    options = {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true,
-                    responsive: true,
-                    mainAspectRatio: false
-                }
-            }]
-        }
-    }
-    $.get('{% url "usuarios:cuentas_y_saldo_json" %}', function(data) {
-        console.log(data)
-        var ctx = $("#myChart").get(0).getContext("2d");
-        new Chart(ctx, {
-            type: 'bar', data: data, options:options
-        });
-    });*/
+  
+    
 </script>
 {% endblock %} 

@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from functools import wraps
 from chartjs.views.lines import BaseLineChartView
+from django.http import HttpResponse,HttpResponseRedirect, JsonResponse
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.core import serializers
@@ -33,28 +34,21 @@ def signup(request):
 
 def Inicio(request):
     cuentas = request.user.cuentas_del_usuario.filter(estado='Activa')
-    presupuestos = request.user.presupuestos_del_usuario.filter(mes__month=3)   
+    presupuestos = request.user.presupuestos_del_usuario.all()#mes__month=3
     contexto = {'cuentas':cuentas,'presupuestos':presupuestos}
+    print("inicio")
     print(contexto) 
     return render(request,'usuarios/inicio.html', {'cuentas':cuentas,'presupuestos':presupuestos})
-
-def Inicio2(request):
-    cuentas = request.user.cuentas_del_usuario.filter(estado='Activa')
-    presupuestos = request.user.presupuestos_del_usuario.filter(mes__month=3)
-    presupuestos = [ presupuestos_serialize(presupuesto) for presupuesto in presupuestos ]   
-    contexto = {'cuentas':cuentas,'presupuestos':presupuestos[0]}
-    print(contexto) 
-    return render(request,'usuarios/inicio.html', contexto)
 
 def presupuestos_serialize(presupuesto):
     categorias = presupuesto.categorias_del_presupuesto.all()
     categorias = [ {'categoria_nombre': categoria.nombre, 'categoria_planeado': categoria.planeado} for categoria in categorias]
     return {'nombre':presupuesto.nombre, 'total_planeado':presupuesto.total_planeado, 'total_actual':presupuesto.total_actual, 'categorias':categorias}
 
-class listarPresupuestos(BaseLineChartView):
-    def get_labels(self):
-        nombre_presupuestos = list(request.user.presupuestos_del_usuario.filter(mes__month=3).values_list("nombre",flat=True))
-
+def getGraficPie(request):
+    presupuestos = request.user.presupuestos_del_usuario.all()
+    presupuestos = [ presupuestos_serialize(presupuesto) for presupuesto in presupuestos ]
+    return HttpResponse(json.dumps(presupuestos,cls=DjangoJSONEncoder), content_type = "application/json")
 
 class CuentasSaldo(BaseLineChartView):
     def get_labels(self):
@@ -62,7 +56,7 @@ class CuentasSaldo(BaseLineChartView):
         return nombres_cuentas
 
     def get_providers(self):
-        return [" Saldo "]
+        return [" NOTHING "]
 
     def get_data(self):
         cuentas = Cuenta.objects.all()

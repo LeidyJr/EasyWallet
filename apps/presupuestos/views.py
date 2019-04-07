@@ -34,7 +34,7 @@ def crear_presupuesto(request):
 
 @login_required
 def mis_presupuestos(request):
-    presupuestos = request.user.presupuestos_del_usuario.all()
+    presupuestos = request.user.presupuestos_del_usuario.filter(estado="Activo")
     return render(request, 'presupuestos/listado_de_presupuestos.html',{'presupuestos':presupuestos})
 
 
@@ -45,7 +45,12 @@ class EditarPresupuesto(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "El presupuesto %(nombre) s se modificó correctamente."
     success_url = reverse_lazy('presupuestos:listado_de_presupuestos')
 
-
+@login_required
+def desactivar_presupuesto(request, id_presupuesto):
+    presupuesto = get_object_or_404(Presupuesto, pk=id_presupuesto)
+    presupuesto.estado = "Inactivo"
+    presupuesto.save()
+    return redirect('presupuestos:listado_de_presupuestos')
 
 @login_required
 def crear_categoria(request, id_presupuesto):

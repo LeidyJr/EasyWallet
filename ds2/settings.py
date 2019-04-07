@@ -192,5 +192,5 @@ MESSAGE_TAGS = {
 SITE_ID = 1
 
 
-LOGIN_REDIRECT_URL = 'cuentas:listado_de_cuentas'
+LOGIN_REDIRECT_URL = 'usuarios:inicio'
 LOGOUT_REDIRECT_URL = 'login'

@@ -34,7 +34,7 @@ def signup(request):
 
 def Inicio(request):
     cuentas = request.user.cuentas_del_usuario.filter(estado='Activa')
-    presupuestos = request.user.presupuestos_del_usuario.all()#mes__month=3
+    presupuestos = request.user.presupuestos_del_usuario.filter(estado="Activo")#mes__month=3
     contexto = {'cuentas':cuentas,'presupuestos':presupuestos}
     print("inicio")
     print(contexto) 
@@ -46,7 +46,7 @@ def presupuestos_serialize(presupuesto):
     return {'nombre':presupuesto.nombre, 'total_planeado':presupuesto.total_planeado, 'total_actual':presupuesto.total_actual, 'categorias':categorias}
 
 def getGraficPie(request):
-    presupuestos = request.user.presupuestos_del_usuario.all()
+    presupuestos = request.user.presupuestos_del_usuario.filter(estado="Activo")
     presupuestos = [ presupuestos_serialize(presupuesto) for presupuesto in presupuestos ]
     return HttpResponse(json.dumps(presupuestos,cls=DjangoJSONEncoder), content_type = "application/json")
 

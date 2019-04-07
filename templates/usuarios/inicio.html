@@ -15,7 +15,7 @@
           <!-- Earnings Card Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Cuentas</h6>
+                  <h6 class="m-0 font-weight-bold text-primary"><a href=" {% url 'cuentas:listado_de_cuentas' %} "><i class="fas fa-money-check"></i> Cuentas </a></h6>
               </div>
               <div class="card-body">
                   {% if cuentas  %}
@@ -47,7 +47,7 @@
             <!-- PRESUPUESTOS -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Presupuestos</h6>
+                  <h6 class="m-0 font-weight-bold text-primary"><a href="{% url 'presupuestos:listado_de_presupuestos' %}"><i class="fas fa-search-dollar"></i> Presupuestos </a></h6>
               </div>
               <div class="card-body">
                   {% if presupuestos  %}
@@ -58,7 +58,7 @@
                         <div class="card shadow mb-4">
                           <!-- Card Header - Dropdown -->
                           <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">{{presupuesto.nombre}}</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">{{presupuesto.nombre}} </h6>
                           </div>
                           <!-- Card Body -->
                           <div class="card-body">
@@ -90,20 +90,6 @@
         <!-- /.container-fluid -->
 
 
-        <div class="row">
-            <div class="col-xl-12 col-lg-12">
-                <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Informe de mis cuentas</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-bar">
-                    <canvas id="myChart"></canvas>
-                  </div>
-                </div>
-                </div>
-            </div>
-        </div>
 
 {% endblock content %}
 

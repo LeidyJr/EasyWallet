@@ -19,7 +19,7 @@
                 </div>
                 <div class="col align-items-right">                  
                     <span class="float-right">
-                      <a href="{% url 'usuarios:inicio' %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a> <a class="btn btn-success" href="{% url 'presupuestos:registrar_presupuesto' %}"> <span class="text">Añadir Presupuesto</span></a>
+                      <a href="{% url 'usuarios:inicio' %}" class="btn btn-primary btn-icon-split"><span class="icon text-white-50"><i class="fas fa-arrow-left"></i></span><span class="text">Volver</span></a> <a class="btn btn-success" href="{% url 'presupuestos:registrar_presupuesto' %}"> <span class="text"><i class="fas fa-plus-circle"></i> Añadir Presupuesto</span></a>
                     </span>                 
                 </div>
               </div>              
@@ -44,10 +44,31 @@
                             <td>{{ presupuesto.nombre }}</td>
                             <td>{{ presupuesto.total_planeado }}</td>
                             <td>{{ presupuesto.total_actual }}</td>
-                            <td>
-                              <a class="btn btn-icon-split btn-success" href="{% url 'presupuestos:listado_de_categorias' presupuesto.id %}"><span class="text">Ver Categorias</span></a>
-                              <a class="btn btn-info" href="{% url 'presupuestos:editar_presupuesto' presupuesto.id %}">Editar</a>
-                                <!--<a class="btn btn-info" href="{% url 'presupuestos:registrar_categoria' presupuesto.id %}"> + Categoría</a>-->                                
+                            <td width="45%">
+                              <a class="btn btn-warning" href="{% url 'presupuestos:editar_presupuesto' presupuesto.id %}"><i class="fas fa-eye"></i> Ver</a>
+                              <a class="btn btn-info" href="{% url 'presupuestos:editar_presupuesto' presupuesto.id %}"><i class="fas fa-edit"></i> Editar</a>
+                              <a class="btn btn-danger" href="{% url 'presupuestos:desactivar_presupuesto' presupuesto.id %}" data-toggle="modal" data-target="#confirmationModal"><i class="fas fa-minus-circle"></i> Inhabilitar</a>
+                              <a class="btn btn-icon-split btn-success" href="{% url 'presupuestos:listado_de_categorias' presupuesto.id %}"><span class="text"><i class="fas fa-eye"></i> Categorías</span></a>
+                              
+                              <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">¿Inhabilitar?</h5>
+                                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">×</span>
+                                    </button>
+                                    </div>
+                                  <div class="modal-body">¿Está Seguro que desea inhabilitar el presupuesto <b>{{ presupuesto.nombre }}</b>?</div>
+                                  <div class="modal-footer">
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                    <a class="btn btn-danger" href=" {% url 'presupuestos:desactivar_presupuesto' 1 %}">Inhabilitar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
                             </td>
                         </tr>
                         {% endfor %}
@@ -62,5 +83,6 @@
 
         </div>
         <!-- /.container-fluid -->
+  
 
 {% endblock %}

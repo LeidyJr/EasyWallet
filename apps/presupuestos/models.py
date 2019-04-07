@@ -8,11 +8,16 @@ class Presupuesto(models.Model):
 		('Egreso','Egreso'),
 		('Ingreso','Ingreso'),
 		)
+	ESTADOS=(
+		('Activo','Activo'),
+		('Inactivo','Inactivo'),
+		)
 	nombre = models.CharField(max_length=15, verbose_name="Nombre del presupuesto")#universidad
 	mes = models.DateField(editable=False)#agosto
 	total_planeado = models.IntegerField()
 	total_actual =models.IntegerField()
 	tipo = models.CharField(max_length=20,choices=TIPOS, default="Egreso")
+	estado = models.CharField(max_length=20,choices=ESTADOS, default="Activo")
 	usuario = models.ForeignKey(User, related_name="presupuestos_del_usuario", on_delete=models.CASCADE)
 
 	def __str__(self):

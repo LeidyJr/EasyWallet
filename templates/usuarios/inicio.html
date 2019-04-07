@@ -38,7 +38,7 @@
                       </div>
                     {% endfor %}
                   {% else %}
-                  <h1> No hay cuentas </h1>
+                  <h2> No hay cuentas, registre su primera cuenta dando <a href="/cuentas/registrar">click aqui</a></h2>
                   {% endif %}
                 </div>
               </div>              
@@ -63,7 +63,7 @@
                           <!-- Card Body -->
                           <div class="card-body">
                             <div id=body_{{presupuesto.nombre}}>
-                              <h4 class="small font-weight-bold">Total Planeado: $ {{presupuesto.total_planeado}} <span class="float-right">Total Actual: $ {{presupuesto.total_actual}}</span></h4>
+                              <h4 class="small font-weight-bold">Total Actual: $ {{presupuesto.total_actual}} <span class="float-right">Total Planeado: $ {{presupuesto.total_planeado}}</span></h4>
                             </div>
                             <div class="chart-pie pt-4">
                               <canvas id="{{presupuesto.nombre}}"></canvas>
@@ -79,7 +79,7 @@
                       <!-- donutChart-->
                     {% endfor %}
                   {% else %}
-                  <h1> No hay presupuestos </h1>
+                  <h2> No hay presupuestos, registre su primer presupuesto dando <a href="/presupuestos/registrar">click aqui</a> </h2>
                   {% endif %}
                 </div>
               </div>              

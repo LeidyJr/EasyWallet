@@ -32,8 +32,9 @@ def Inicio(request):
 
 
 class CuentasSaldo(BaseLineChartView):
+
     def get_labels(self):
-        nombres_cuentas = list(Cuenta.objects.all().values_list("nombre", flat=True))
+        nombres_cuentas = list(Cuenta.objects.filter(usuario=1).values_list("nombre", flat=True))
         return nombres_cuentas
 
     def get_providers(self):

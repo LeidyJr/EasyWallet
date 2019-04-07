@@ -88,11 +88,22 @@
 
           </div>
         <!-- /.container-fluid -->
-        <!--<input type="text" 
-                      name="donut_chart" 
-                      id="donut_chart" 
-                      style="display: none"
-                      value="{{presupuestos}}">-->
+
+
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Informe de mis cuentas</h6>
+                </div>
+                <div class="card-body">
+                  <div class="chart-bar">
+                    <canvas id="myChart"></canvas>
+                  </div>
+                </div>
+                </div>
+            </div>
+        </div>
 
 {% endblock content %}
 
@@ -154,4 +165,15 @@
   
     
 </script>
-{% endblock %} 
+
+
+  <!-- Page level plugins -->
+  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
+  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
+  <script src="{% static 'js/demo/chart-bar-demo.js' %}"></script>
+
+
+{% endblock extrajs %} 

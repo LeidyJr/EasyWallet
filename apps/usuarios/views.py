@@ -51,8 +51,9 @@ def getGraficPie(request):
     return HttpResponse(json.dumps(presupuestos,cls=DjangoJSONEncoder), content_type = "application/json")
 
 class CuentasSaldo(BaseLineChartView):
+
     def get_labels(self):
-        nombres_cuentas = list(Cuenta.objects.all().values_list("nombre", flat=True))
+        nombres_cuentas = list(Cuenta.objects.filter(usuario=1).values_list("nombre", flat=True))
         return nombres_cuentas
 
     def get_providers(self):

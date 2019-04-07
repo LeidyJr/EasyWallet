@@ -10,7 +10,8 @@ from django.contrib import messages
 from apps.presupuestos.models import Presupuesto, Categoria
 from apps.cuentas.models import Cuenta
 
-from .forms import TransaccionForm
+
+from .forms import *
 from .models import Transaccion
 from .models import Cuenta
 
@@ -40,6 +41,43 @@ def crear_transaccion(request):
 		else:
 			messages.error(request, "Error")
 	return render(request, 'transacciones/transaccion_form.html', {'form':form})
+
+@login_required
+def crear_ingreso(request):
+	form = IngresoForm(usuario=request.user)
+	if request.method == "POST":
+		form = IngresoForm(request.POST, usuario=request.user)
+		if form.is_valid():
+			transaccion = form.save(commit=False)
+			transaccion.tipo = 'Egreso'
+			transaccion.save()
+			messages.success(request, 'La transacción se registró correctamente.')
+			return redirect('presupuestos:listado_de_presupuestos')
+		else:
+			messages.error(request, "Error")
+	return render(request, 'transacciones/transaccion_form.html', {'form':form, 'nombre':'Ingreso'})
+
+@login_required
+def crear_egreso(request):
+	form = EgresoForm(usuario=request.user)
+	if request.method == "POST":
+		form = EgresoForm(request.POST, usuario=request.user)
+		if form.is_valid():
+			transaccion = form.save(commit=False)
+			transaccion.tipo = 'Ingreso'
+			transaccion.save()
+			transaccion.cuenta.saldo -= transaccion.valor
+			transaccion.categoria.actual += transaccion.valor
+			transaccion.categoria.presupuesto.total_actual +=transaccion.valor
+			transaccion.categoria.diferencia -= transaccion.valor
+			transaccion.cuenta.save()
+			transaccion.categoria.save()
+			transaccion.categoria.presupuesto.save()
+			messages.success(request, 'La transacción se registró correctamente.')
+			return redirect('presupuestos:listado_de_presupuestos')
+		else:
+			messages.error(request, "Error")
+	return render(request, 'transacciones/transaccion_form.html', {'form':form, 'nombre':'Egreso'})
 
 @login_required
 def mis_ingresos(request):

@@ -15,6 +15,7 @@ from django.urls import reverse_lazy
 import django_heroku
 import dj_database_url 
 from decouple import config
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -30,7 +31,8 @@ DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', ]
 
 
 # Application definition
@@ -72,6 +74,7 @@ MIDDLEWARE = [
 ]
 
 
+
 ROOT_URLCONF = 'ds2.urls'
 
 TEMPLATES = [
@@ -96,13 +99,13 @@ WSGI_APPLICATION = 'ds2.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 
-DATABASES = {
+""""DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
-}
+}"""
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'EasyWallet',
@@ -111,7 +114,8 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
-}"""
+}
+
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -178,6 +182,7 @@ USE_TZ = True
 
 
 
+
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -206,6 +211,8 @@ MESSAGE_TAGS = {
 SITE_ID = 1
 
 
-LOGIN_REDIRECT_URL = 'cuentas:listado_de_cuentas'
+
+LOGIN_REDIRECT_URL = 'usuarios:inicio'
 LOGOUT_REDIRECT_URL = 'login'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+

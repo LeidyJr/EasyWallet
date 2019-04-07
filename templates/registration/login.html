@@ -44,7 +44,23 @@
                     <h1 class="h4 text-gray-900 mb-4">Bienvenido a EasyWallet</h1>
                     <h5 class="h5 text-gray-700 mb-4">Tu servicio de gestión de finanzas personales</h5>
                   </div>
-                  <form method="post" class="user">{% csrf_token %}
+                  {% if form.errors %}
+                    {% for field in form %}
+
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                  {% endif %}
+
+                  <form method="post">{% csrf_token %}
                     <div class="form-group">
                       
                       {% bootstrap_field form.username %}

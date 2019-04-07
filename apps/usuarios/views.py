@@ -42,7 +42,7 @@ def Inicio(request):
 
 def presupuestos_serialize(presupuesto):
     categorias = presupuesto.categorias_del_presupuesto.all()
-    categorias = [ {'categoria_nombre': categoria.nombre, 'categoria_planeado': categoria.planeado} for categoria in categorias]
+    categorias = [ {'categoria_nombre': categoria.nombre, 'categoria_planeado': categoria.planeado, 'categoria_actual':categoria.actual} for categoria in categorias]
     return {'nombre':presupuesto.nombre, 'total_planeado':presupuesto.total_planeado, 'total_actual':presupuesto.total_actual, 'categorias':categorias}
 
 def getGraficPie(request):

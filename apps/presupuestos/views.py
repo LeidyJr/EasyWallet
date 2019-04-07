@@ -87,9 +87,8 @@ def EditarCategoriaF(request,pk):
         form = CategoriaForm(request.POST, instance=categoria)
         if form.is_valid():
             categoria = form.save(commit=False)
-            categoria.diferencia = categoria.planeado
             actualizarCategoria(categoria.id, categoria.planeado)
-            categoria.save()
+            #categoria.save()
         return redirect('presupuestos:listado_de_categorias', categoria.presupuesto.id)
     return render(request, 'presupuestos/categoria_editar.html', {'form':form, 'id_presupuesto':categoria.presupuesto.id})
 
@@ -99,9 +98,10 @@ def actualizarCategoria(idCategoria, inPlaneado):
     presupuesto.total_planeado -=  categoriaOld.planeado
     presupuesto.total_planeado += inPlaneado
     if categoriaOld.actual != 0:
-        categoriaOld.diferencia += (inPlaneado - categoriaOld.actual)
+        categoriaOld.diferencia = (inPlaneado - categoriaOld.actual)
     else:
         print("ENTRO POR AQUI")
         categoriaOld.diferencia = inPlaneado
+    categoriaOld.planeado = inPlaneado
     presupuesto.save()
     categoriaOld.save()

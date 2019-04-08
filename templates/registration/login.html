@@ -71,7 +71,7 @@
                     </div>
                     <input class="btn btn-primary btn-user btn-block" type="submit" value="Acceder">
                     <hr>
-                    <a href="/accounts/google/login" class="btn btn-google btn-user btn-block">
+                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-google btn-user btn-block">
                       <i class="fab fa-google fa-fw"></i> Acceder con tu cuenta de Google
                     </a>
                   </form>

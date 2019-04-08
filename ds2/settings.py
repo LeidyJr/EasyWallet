@@ -32,7 +32,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -99,13 +99,13 @@ WSGI_APPLICATION = 'ds2.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 
-DATABASES = {
+"""DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
-}
+}"""
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'EasyWallet',
@@ -114,7 +114,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '5432',
     }
-}"""
+}
 
 
 AUTHENTICATION_BACKENDS = (

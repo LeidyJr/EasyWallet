@@ -13,7 +13,7 @@ class Presupuesto(models.Model):
 		('Inactivo','Inactivo'),
 		)
 
-	nombre = models.CharField(max_length=15, verbose_name="Nombre del presupuesto")#universidad
+	nombre = models.CharField(max_length=30, verbose_name="Nombre del presupuesto")#universidad
 	mes = models.DateField(editable=False)#agosto
 	total_planeado = models.IntegerField()
 	total_actual =models.IntegerField()
@@ -33,7 +33,7 @@ class Presupuesto(models.Model):
 
 class Categoria(models.Model):
 
-	nombre = models.CharField(max_length=15, verbose_name="Nombre de la categoría") #almuerzos
+	nombre = models.CharField(max_length=30, verbose_name="Nombre de la categoría") #almuerzos
 	planeado = models.IntegerField()#20000
 	actual = models.IntegerField()
 	diferencia = models.IntegerField()

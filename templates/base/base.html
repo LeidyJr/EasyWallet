@@ -36,7 +36,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'usuarios:inicio' %}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-wallet"></i>
         </div>
@@ -58,8 +58,8 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{% url 'cuentas:registrar_cuenta' %}">Registrar Cuenta</a>
             <a class="collapse-item" href="{% url 'cuentas:listado_de_cuentas' %}">Listado de cuentas</a>
-            <a class="collapse-item" href="{% url 'cuentas:registrar_cuenta' %}">Registrar</a>
           </div>
         </div>
       </li>
@@ -72,8 +72,8 @@
         </a>
         <div id="collapseTwo1" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="{% url 'presupuestos:registrar_presupuesto' %}">Crear Presupuesto</a>
             <a class="collapse-item" href="{% url 'presupuestos:listado_de_presupuestos' %}">Listado de presupuestos</a>
-            <a class="collapse-item" href="{% url 'presupuestos:registrar_presupuesto' %}">Registrar</a>
           </div>
         </div>
       </li>
@@ -86,9 +86,10 @@
         </a>
         <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{% url 'transacciones:listado_de_ingresos' %}">Listado de ingresos</a>
-            <a class="collapse-item" href="{% url 'transacciones:listado_de_egresos' %}">Listado de egresos</a>
-            <a class="collapse-item" href="{% url 'transacciones:registrar_transaccion' %}">Registrar</a>
+            <a class="collapse-item" href="{% url 'transacciones:registrar_ingreso' %}">Registrar Ingreso</a>
+            <a class="collapse-item" href="{% url 'transacciones:registrar_egreso' %}">Registrar Egreso</a>
+            <a class="collapse-item" href="{% url 'transacciones:listado_de_ingresos' %}">Listado de Ingresos</a>
+            <a class="collapse-item" href="{% url 'transacciones:listado_de_egresos' %}">Listado de Egresos</a>            
           </div>
         </div>
       </li>
@@ -110,9 +111,7 @@
       <div id="content">
 
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-0 static-top shadow">
-          <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-              <div class="sidebar-brand-text mx-3"> <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Bienvenido, {{request.user}} </div>
-            </a>
+          <div class="sidebar-brand-text mx-3"> <i class="fas fa-user fa-sm fa-fw mr-2 text-primary"></i>Bienvenido, {{request.user}} </div>
           <ul class="navbar-nav ml-auto">
             <a class="nav-link" href="{% url 'logout' %}" data-toggle="modal" data-target="#logoutModal">
               <i class="fas fa-sign-out-alt"></i>

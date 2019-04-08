@@ -25,6 +25,8 @@ def crear_cuenta(request):
             cuenta.tipo = form.cleaned_data["tipo"]
             cuenta.usuario = request.user
             cuenta.save()
+            transaccion = Transaccion(descripcion="Inicial",valor=cuenta.saldo, cuenta=cuenta, tipo="Inicial", saldo_actual_cuenta=cuenta.saldo)
+            transaccion.save()
             messages.success(request, 'La cuenta se registró correctamente.')
             return redirect('cuentas:listado_de_cuentas')
         else:

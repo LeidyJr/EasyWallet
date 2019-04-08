@@ -134,7 +134,7 @@ AUTHENTICATION_BACKENDS = (
 
 SOCIAL_AUTH_PIPELINE = (
     
-    'social_core.pipeline.user.user_details',
+    'social_auth.backend.pipeline.social.social_auth_user',
 )
 
 

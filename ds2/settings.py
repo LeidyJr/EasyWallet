@@ -108,16 +108,7 @@ DATABASES = {
     )
 }
 
-"""DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'EasyWallet',
-        'USER': 'easywallet',
-        'PASSWORD': 'leidy',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}"""
+
 
 
 AUTHENTICATION_BACKENDS = (
@@ -215,11 +206,11 @@ MESSAGE_TAGS = {
 }
 
 SITE_ID = 1
-###
+
 
 
 LOGIN_REDIRECT_URL = 'usuarios:inicio'
 LOGOUT_REDIRECT_URL = 'login'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY ='1045739230279-8mqjvkfqhi3adima6k2rueidcv6rasrm.apps.googleusercontent.com'  #Paste CLient Key
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '0S_b10pR7h7EbHouV4TuS6cX' #Paste Secret Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '0S_b10pR7h7EbHouV4TuS6cX'

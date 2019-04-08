@@ -14,7 +14,7 @@ class Transaccion(models.Model):
 	descripcion = models.CharField(max_length=40, verbose_name="Descripción de la transacción")
 	valor = models.IntegerField()
 	cuenta = models.ForeignKey(Cuenta, related_name="transacciones_de_la_cuenta", on_delete= models.CASCADE)
-	categoria = models.ForeignKey(Categoria, related_name="transacciones_de_la_categoria", on_delete=models.CASCADE, null=True, blank=True)
+	categoria = models.ForeignKey(Categoria, related_name="transacciones_de_la_categoria", on_delete=models.CASCADE, null=True, blank=False)
 	tipo = models.CharField(max_length=20, choices=TIPO, default= 'Egreso')
 	saldo_actual_cuenta = models.IntegerField(default=100)
 

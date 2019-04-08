@@ -102,12 +102,22 @@ WSGI_APPLICATION = 'ds2.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 
-DATABASES = {
+"""DATABASES = {
     'default': dj_database_url.config(
         default=config('DATABASE_URL')
     )
-}
+}"""
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'EasyWallet',
+        'USER': 'easywallet',
+        'PASSWORD': 'leidy',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`

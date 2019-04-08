@@ -12,4 +12,5 @@ urlpatterns = [
     path('cuentas_y_saldo', vista_cuentas_y_saldo, name="cuentas_y_saldo"),
     path('cuentas_y_saldo_json', cuentas_y_saldo_json, name="cuentas_y_saldo_json"),
     path('getGraficPie', view=getGraficPie, name="getGraficPie"),
+    path('getCuentas', view=getCuentas, name="getCuentas"),
     ]

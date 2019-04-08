@@ -2,11 +2,15 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
+import json
+from django.core.serializers.json import DjangoJSONEncoder
+from django.core import serializers
+from django.core.serializers import serialize
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-
+from apps.transacciones.models import Transaccion
 from .models import Cuenta
 from .forms import CuentaForm, EditarCuentaForm
 
@@ -44,3 +48,12 @@ class EditarCuenta(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = "La cuenta %(nombre)s se modificó correctamente."
     success_url = reverse_lazy('cuentas:listado_de_cuentas')
 
+@login_required
+def ver_cuenta(request, pk):
+    cuenta = Cuenta.objects.get(id=pk)
+    return render(request,'cuentas/ver_cuenta.html', {'cuenta':cuenta})
+
+def getGraficArea(request, pk):
+    transacciones = Transaccion.objects.all().filter(cuenta=pk,fecha__month=4)#, fecha__month=4
+    transacciones = [ {'fecha':transaccion.fecha, 'saldo':transaccion.saldo_actual_cuenta} for transaccion in transacciones]
+    return HttpResponse(json.dumps(transacciones,cls=DjangoJSONEncoder), content_type = "application/json")

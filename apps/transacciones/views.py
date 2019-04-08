@@ -48,8 +48,16 @@ def crear_ingreso(request):
 		form = IngresoForm(request.POST, usuario=request.user)
 		if form.is_valid():
 			transaccion = form.save(commit=False)
-			transaccion.tipo = 'Egreso'
-			transaccion.save()
+			transaccion.tipo = 'Ingreso'
+			transaccion.cuenta.saldo += transaccion.valor
+			transaccion.saldo_actual_cuenta = transaccion.cuenta.saldo
+			transaccion.save()			
+			transaccion.categoria.actual += transaccion.valor
+			transaccion.categoria.presupuesto.total_actual +=transaccion.valor
+			transaccion.categoria.diferencia -= transaccion.valor
+			transaccion.cuenta.save()
+			transaccion.categoria.save()
+			transaccion.categoria.presupuesto.save()
 			messages.success(request, 'La transacción se registró correctamente.')
 			return redirect('presupuestos:listado_de_presupuestos')
 		else:
@@ -63,9 +71,10 @@ def crear_egreso(request):
 		form = EgresoForm(request.POST, usuario=request.user)
 		if form.is_valid():
 			transaccion = form.save(commit=False)
-			transaccion.tipo = 'Ingreso'
-			transaccion.save()
+			transaccion.tipo = 'Egreso'
 			transaccion.cuenta.saldo -= transaccion.valor
+			transaccion.saldo_actual_cuenta = transaccion.cuenta.saldo
+			transaccion.save()
 			transaccion.categoria.actual += transaccion.valor
 			transaccion.categoria.presupuesto.total_actual +=transaccion.valor
 			transaccion.categoria.diferencia -= transaccion.valor

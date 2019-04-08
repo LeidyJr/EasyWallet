@@ -43,12 +43,17 @@ def Inicio(request):
 def presupuestos_serialize(presupuesto):
     categorias = presupuesto.categorias_del_presupuesto.all()
     categorias = [ {'categoria_nombre': categoria.nombre, 'categoria_planeado': categoria.planeado, 'categoria_actual':categoria.actual} for categoria in categorias]
-    return {'nombre':presupuesto.nombre, 'total_planeado':presupuesto.total_planeado, 'total_actual':presupuesto.total_actual, 'categorias':categorias}
+    return {'id':presupuesto.id,'nombre':presupuesto.nombre, 'total_planeado':presupuesto.total_planeado, 'total_actual':presupuesto.total_actual, 'categorias':categorias}
 
 def getGraficPie(request):
     presupuestos = request.user.presupuestos_del_usuario.filter(estado="Activo")
     presupuestos = [ presupuestos_serialize(presupuesto) for presupuesto in presupuestos ]
     return HttpResponse(json.dumps(presupuestos,cls=DjangoJSONEncoder), content_type = "application/json")
+
+def getCuentas(request):
+    cuentas = request.user.cuentas_del_usuario.filter(estado='Activa')
+    cuentas = [ {'cuenta_id':cuenta.id} for cuenta in cuentas ]
+    return HttpResponse(json.dumps(cuentas,cls=DjangoJSONEncoder), content_type = "application/json")
 
 class CuentasSaldo(BaseLineChartView):
 

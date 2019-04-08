@@ -26,11 +26,11 @@
                           <div class="card-body">
                             <div class="row no-gutters align-items-center">
                               <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">{{cuenta.nombre}}</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">${{cuenta.saldo}}</div>
+                                <div class="text-x font-weight-bold text-primary text-uppercase mb-1"><a href=" {% url 'cuentas:ver_cuenta' cuenta.id %} ">{{cuenta.nombre}}</a></div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">$ <span id="{{cuenta.id}}">{{cuenta.saldo}}</span></div>
                               </div>
                               <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                <i class="fas fa-dollar-sign fa-2x text-success"></i>
                               </div>
                             </div>
                           </div>
@@ -64,10 +64,10 @@
                           <div class="card-body">
                             <div class="row">
                               <div class="col">
-                                <h6 class=" font-weight-bold">Total Actual: $ {{presupuesto.total_actual}}</h6>
+                                <h6 class=" font-weight-bold">Total Actual: $ <span id="{{presupuesto.id}}_actual"> {{presupuesto.total_actual}}</span></h6>
                               </div>
                               <div class="col">
-                                <h6 class=" font-weight-bold"><span class="float-left"> Total Planeado: $ {{presupuesto.total_planeado}}</span></h6>
+                                <h6 class=" font-weight-bold"><span class="float-left"> Total Planeado: $ <span id="{{presupuesto.id}}_planeado"> {{presupuesto.total_planeado}}</span></span></h6>
                               </div>
                               
                             </div>
@@ -113,21 +113,31 @@
 
 {% block extrajs %}
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
+<script src="{% static 'js/number_format.js' %}"></script>
 <!--<script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>-->
 <script type="text/javascript">
   $(document).ready(function(){
-      $.get('{% url "usuarios:getGraficPie" %}', function(data) {
-          console.log(data)
+    $.get('{% url "usuarios:getCuentas" %}', function(data){
+      for (var i = 0; i < data.length; i++) {
+        let saldo = (document.getElementById(data[i].cuenta_id).innerHTML);
+        document.getElementById(data[i].cuenta_id).innerHTML = number_format(parseInt(saldo));
+      }
+    });
+    $.get('{% url "usuarios:getGraficPie" %}', function(data) {
+      console.log(data);
           var colors = ["primary","success","info","warning","danger","secondary"]
           for (var i = 0; i < data.length; i++) {
+            let actual = (document.getElementById(data[i].id+"_actual").innerHTML);
+            document.getElementById(data[i].id+"_actual").innerHTML = number_format(parseInt(actual));
+            let planeado = (document.getElementById(data[i].id+"_planeado").innerHTML);
+            document.getElementById(data[i].id+"_planeado").innerHTML = number_format(parseInt(planeado));
             var ctx = document.getElementById(data[i].nombre);
-            console.log(data[i].nombre);
             var tamañoCategoria = data[i].categorias.length;
             var labelsIn = []
             var dataIn = []
             for (var x = 0; x < tamañoCategoria; x++) {
-              //console.log(data[i].categorias[x].categoria_nombre);
               labelsIn.push(data[i].categorias[x].categoria_nombre);
               dataIn.push(data[i].categorias[x].categoria_planeado);              
               var addDiv = $(document.getElementById(data[i].nombre+"_"+data[i].total_planeado));
@@ -135,7 +145,6 @@
               var addProgress = $(document.getElementById("body_"+data[i].nombre));
               var porcentaje = data[i].categorias[x].categoria_actual/data[i].categorias[x].categoria_planeado
               porcentaje = Math.trunc(porcentaje*100)
-              console.log("PORCENTAJE : "+porcentaje)
               $(addProgress).append("<h4 class='small font-weight-bold'>"+data[i].categorias[x].categoria_nombre+"<span class='float-right'>"+porcentaje+"%</span></h4>");
               $(addProgress).append("<div class='progress mb-4'><div class='progress-bar bg-"+colors[x]+"' role='progressbar' style='width: "+porcentaje+"%' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100' ></div></div>");
             }
@@ -169,7 +178,9 @@
               },
             });
           }
+          
       });
+      
   });
   
     
@@ -177,12 +188,7 @@
 
 
   <!-- Page level plugins -->
-  <script src="{% static 'vendor/chart.js/Chart.min.js' %}"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="{% static 'js/demo/chart-area-demo.js' %}"></script>
-  <script src="{% static 'js/demo/chart-pie-demo.js' %}"></script>
-  <script src="{% static 'js/demo/chart-bar-demo.js' %}"></script>
 
 
 {% endblock extrajs %} 

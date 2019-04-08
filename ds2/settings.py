@@ -132,10 +132,6 @@ AUTHENTICATION_BACKENDS = (
     'social_core.backends.google.GoogleOAuth2',
 )
 
-SOCIAL_AUTH_PIPELINE = (
-    
-    'social_auth.backend.pipeline.social.social_auth_user',
-)
 
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -219,7 +215,7 @@ MESSAGE_TAGS = {
 }
 
 SITE_ID = 1
-
+###
 
 
 LOGIN_REDIRECT_URL = 'usuarios:inicio'

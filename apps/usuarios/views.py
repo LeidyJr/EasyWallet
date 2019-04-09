@@ -28,7 +28,7 @@ def signup(request):
             user.save()
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('cuentas:listado_de_cuentas')
+            return redirect('usuarios:inicio')
     else:
         form = SignUpForm()
     return render(request, 'usuarios/signup.html', {'form': form})
